@@ -15,6 +15,10 @@ class Pixel(pygame.sprite.Sprite):
         self.height = 20
         self.width = 20
         self.block = False
+        self.up = None
+        self.down = None
+        self.right = None
+        self.left = None
 
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((self.height, self.width))
@@ -34,13 +38,20 @@ class Pixel(pygame.sprite.Sprite):
         self.set_color(WHITE)
         self.block = True
       
-        
+    def delete_block(self):
+        self.set_color(BLACK)
+        self.block = False
     
         
         
         
     def get_coordinates(self):
         return self.rect.center
+
+    def get_coords(self):
+        return {'x':self.rect.center[0],
+                'y':self.rect.center[1]}
+
 
 
 
