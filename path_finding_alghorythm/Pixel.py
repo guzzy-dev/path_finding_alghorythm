@@ -7,6 +7,7 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+YELLOW = (255, 255, 105)
 
 class Pixel(pygame.sprite.Sprite):
     """description of class"""
@@ -15,6 +16,12 @@ class Pixel(pygame.sprite.Sprite):
         self.height = 20
         self.width = 20
         self.block = False
+        self.visited = False
+        self.previous = None
+
+        self.start = False
+        self.end = False
+
         self.up = None
         self.down = None
         self.right = None
@@ -37,16 +44,43 @@ class Pixel(pygame.sprite.Sprite):
     def set_block(self):
         self.set_color(WHITE)
         self.block = True
+
+    def set_start(self):
+        self.start = True
+        self.visited = True
+        self.set_color(RED)
       
+    def set_end(self):
+        self.end = True
+        self.set_color(GREEN)
+
+    def set_path(self):
+        self.set_color(BLUE)
+
     def delete_block(self):
         self.set_color(BLACK)
         self.block = False
     
         
+    def visit(self, previous_pixel):
+        if self.block is False and self.visited is False:
+            self.visited = True
+            self.previous = previous_pixel
+            self.set_color(YELLOW)
+
+
+    def check_block_and_visited(self): 
+        if self.block is False and self.visited is False:
+            return True
+        else: return False
         
-        
-    def get_coordinates(self):
-        return self.rect.center
+
+    def get_neighbors(self):
+        return [self.up,
+                self.right,
+                self.down,
+                self.left]
+
 
     def get_coords(self):
         return {'x':self.rect.center[0],
