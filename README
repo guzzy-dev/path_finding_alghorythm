@@ -1,0 +1,23 @@
+This repo created to demonstrate how A* algoryth finds the shortest way between start point and end point.
+
+Main idea of algorythm:
+1. visit all points from "current step array" if they are exist
+  1.1. check each point is it has barrier or visited marks   (If it has at least one of marks -> skip this point)
+  1.2. mark this point as visited
+  1.3. add all point neighbors to the "new step array" with marking "parent" where we came from
+2. "current step" = "new step"  (change data from old one to new one)
+3. check does current step have end point
+  3.1 if yes
+    3.1.1. stop algorythm
+    3.1.2. start moving to the parents and marking them as path
+  3.2 if no
+    3.2.1. start algorythm from paragraph 1
+    
+    
+========== HOW TO USE ==========
+1. start app
+2. draw obstacles by LMB
+3. if you want you can delete obstacles by RMB
+4. set start point by pressing "a" button on your keyboard
+5. set end point by pressing "b" button on your keyboard
+6. press num pad enter to start
