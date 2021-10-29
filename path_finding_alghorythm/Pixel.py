@@ -10,7 +10,10 @@ BLUE = (0, 0, 255)
 YELLOW = (255, 255, 105)
 
 class Pixel(pygame.sprite.Sprite):
-    """description of class"""
+    """
+    Class of square (pixel) on the field. Pixel can be as START, END, OBSTACLE(block) and VISITED
+
+    """
         
     def __init__(self, x, y, color = BLACK):
         self.height = 20
@@ -27,19 +30,18 @@ class Pixel(pygame.sprite.Sprite):
         self.right = None
         self.left = None
 
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((self.height, self.width))
+        pygame.sprite.Sprite.__init__(self) #sprite inite
+        self.image = pygame.Surface((self.height, self.width)) #set sprite size
 
-        self.color = color
         self.image.fill(color)
 
         self.rect = self.image.get_rect()
-        self.rect.center = x+self.width/2, y+self.height/2
+        self.rect.center = x+self.width/2, y+self.height/2 #searching rect center
 
 
     def set_color(self, color: tuple):
         self.image.fill(color)
-        self.color = color
+
 
     def set_block(self):
         self.set_color(WHITE)
@@ -63,6 +65,9 @@ class Pixel(pygame.sprite.Sprite):
     
         
     def visit(self, previous_pixel):
+        """
+            Function marks that pixel as visited and won't use it again
+        """
         if self.block is False and self.visited is False:
             self.visited = True
             self.previous = previous_pixel
@@ -70,6 +75,7 @@ class Pixel(pygame.sprite.Sprite):
 
 
     def check_block_and_visited(self): 
+        """ If pixel was visited or marked as a block function returns False because can't visit it"""
         if self.block is False and self.visited is False:
             return True
         else: return False

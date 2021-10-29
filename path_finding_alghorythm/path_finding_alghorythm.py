@@ -3,10 +3,7 @@ import Window
 
 #COLORS 
 WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
+
 
 start = False
 end = False
@@ -49,6 +46,7 @@ while True:
                     end = True
                 except: pass
             if event.key == pygame.K_KP_ENTER:
+                window.processing = True
                 window.start_A_star()
 
 

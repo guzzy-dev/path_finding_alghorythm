@@ -2,12 +2,13 @@ import pygame
 import Pixel
 
 class Window(object):
-    """description of class"""
+    """Class responsible for creating sprites, operation with them and work of pathfinding algorythm"""
     def __init__(self):
         self.height = 992
         self.width = 992
         self.current_step = []
         self.previous_step = []
+        self.processing = False
         pygame.init()
         self.screen = pygame.display.set_mode((self.height, self.width))
         pygame.display.set_caption('Path finding algorythm')
@@ -31,6 +32,10 @@ class Window(object):
 
 
     def find_sprite(self, x, y):
+        """
+        INPUT: x:float, y:float
+        OUTPUT: Sprite on input position
+        """
         for sprite in self.all_sprites:
             coords = sprite.get_coords()
             sprite_x = coords['x']
@@ -76,12 +81,12 @@ class Window(object):
                 down_pixel = self.find_sprite(pixel_x, pixel_y + pixel.height)
                 pixel.down = down_pixel
             except: pass
-            #print(pixel_x, pixel_y, (pixel.up, pixel.right, pixel.down, pixel.left))
+
 
 
 
     def start_A_star(self):
-        #Find start
+        """Function finds start pixel and adds it to current_step array"""
         start_pixel = None
         for pixel in self.all_sprites:
             start_pixel = pixel if pixel.start is True else None
@@ -92,7 +97,15 @@ class Window(object):
         
 
     def step_visiting(self): 
-        #print(self.current_step)
+        """
+            For each pixel in current_step function visit them, finds all visitable neighbors
+            and adds them to new_step array. Neighbors knows about previous pixel where they came from
+            After that current_step = new_step
+        ==========================
+        returns None or end pixel
+        """
+        if self.processing and len(self.current_step) == 0:
+            print("End point isn't reachable")
         next_step = []
         for pixel in self.current_step:
             neighbors = pixel.get_neighbors()
@@ -110,11 +123,20 @@ class Window(object):
 
 
     def check_end(self):
+        """
+        In current_step function finds end pixel 
+        If it found -> returns it
+        ==================
+        return end pixel
+        """
         for pixel in self.current_step:
             if pixel.end:
                 return(pixel)
 
     def make_path(self, pixel):
+        """
+        Function goes step by step back from end pixel to previous and fills it as Blue color
+        """
         while pixel is not None:
             #pixel.set_color((255,0,255))
             print(pixel.get_coords())
